@@ -112,89 +112,61 @@ public class Model extends Observable {
         changed = false;
 
         // TODO: Modify this.board (and perhaps this.score) to account
-        // for the tilt to the Side SIDE. If the board changed, set the
-        // changed local variable to true.
-        for (int c = 0; c < board.size(); c+=1) {
-            int mv = 0;
-            for (int r = board.size() - 1; r >= 0; r -= 1) {
+        int numRow;
+        int val;
+        for (int c = 0;c < board.size(); c++) {
+            for (int r = board.size() -1; r >= 0; r-=1){
                 Tile t = board.tile(c, r);
-                if (board.tile(c, r) != null && board.tile(c, 3) == null) {
-                    board.move(c, 3, t);
-                    changed = true;
-                } else if (board.tile(c, r) != null && board.tile(c, 3) != null && r != 3) {
-                    if (board.tile(c, 2) == null) {
-                        if (board.tile(c, 1) == null) {
-                            if (r == 0 && board.tile(c, 3).value() == t.value() && mv == 0 ) {
-                                board.move(c, 3, t);
-                                mv += 1;
-                                changed = true;
-                                score += t.value() * 2;
-                            } else {
-                                board.move(c, 2, t);
-                                mv += 1;
-                                changed = true;
-                            }
-                        }
-                        else if (board.tile(c, 1) != null) {
-                            if (r == 1 && board.tile(c, 3).value() == t.value() && mv == 0) {
-                                board.move(c, 3, t);
-                                mv += 1;
-                                changed = true;
-                                score += t.value() * 2;
-                            }
-                            else if (r == 1){
-                                board.move(c, 2, t);
-                                mv += 1;
-                                changed = true;
-                            }
-                        }
+                if (t != null) {
+                    numRow = closestValue(c, r, t);
+                    if (numRow >= 0) {
+                        board.move(c,r,board.tile(c,numRow));
+                        changed = true;
+                        score += t.value()*2;
                     }
-                    else { // 2 != null
-                        if (r == 2 && board.tile(c, 3).value() == t.value() && mv == 0) {
-                            board.move(c, 3, t);
-                            mv +=1;
-                            changed = true;
-                            score += t.value()*2;
+                }
+                else {
+                    val = sameValue(c,r);
+                    if (val >= 0) {
+                        Tile b = board.tile(c,val);
+                        board.move(c,r,b);
+                        numRow = closestValue(c, r, b);
+                        if (numRow >= 0) {
+                            board.move(c,r,board.tile(c,numRow));
+                            score += b.value()*2;
                         }
-                        else if (board.tile(c, 1) == null){
-                            if (r== 0 && board.tile(c, 2).value() == t.value() && mv <=2){
-                                board.move(c, 2, t);
-                                mv += 1;
-                                changed = true;
-                                score += t.value()*2;
-                            }
-                            else {
-                                board.move(c,1, t);
-                                changed = true;
-                                mv +=1;
-                            }
-                        }
-
-                        else if (board.tile(c, 1)!= null){
-                            if (r == 1 && board.tile(c, 2).value() == t.value() && mv == 0) {
-                                board.move(c, 2, t);
-                                mv +=1;
-                                changed = true;
-                                score += t.value()*2;
-                            }
-                            else if ( r == 0 && board.tile(c, 1).value() == t.value()){
-                                board.move (c , 1, t);
-                                mv+= 1;
-                                changed = true;
-                                score += t.value()*2;
-                            }
-                        }
+                        changed = true;
                     }
                 }
             }
         }
-
         checkGameOver();
         if (changed) {
             setChanged();
         }
         board.setViewingPerspective(Side.NORTH);
         return changed;
+    }
+
+    public int sameValue (int c, int r) {
+        for (int i = r - 1; i >= 0; i -= 1) {
+            if (board.tile(c, i) != null) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public int closestValue (int c, int r, Tile t){
+        for (int i = r-1; i >= 0; i-=1) {
+            if (board.tile(c,i) != null && t.value() != board.tile(c, i).value()) {
+                return -1;
+            }
+            if (board.tile(c,i) != null && t.value() == board.tile(c, i).value()) {
+                return i;
+            }
+        }
+        return -1;
     }
 
 
