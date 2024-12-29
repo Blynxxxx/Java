@@ -35,10 +35,13 @@ public class TimeSLList {
             for (int j = 0; j < i; j++) {
                 L.addLast(j);
             }
+            int opCount = 0;
             Stopwatch sw = new Stopwatch();
-            L.getLast();
+            for (int n = 0; n < 10000; n++) {
+                int val = L.getLast();
+                opCount +=1;
+            }
             double timeInSeconds = sw.elapsedTime();
-            int opCount = 1;
             opCounts.addLast(opCount);
             times.addLast(timeInSeconds);
         }
