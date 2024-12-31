@@ -2,7 +2,7 @@ package deque;
 
 public class ArrayDeque<T> {
 
-    private final T[] items;
+    private T[] items;
     private int size;
     private int nextFirst;
     private int nextLast;
@@ -22,28 +22,34 @@ public class ArrayDeque<T> {
      * Adds an item of type T to the front of the deque. You can assume that item is never null.
      */
     public void addFirst(T item) {
-//        if (size == items.length) {
-//            resize(size * 2);
-//        }
+        if (size == items.length) {
+            resize(size * 2);
+        }
         items[nextFirst] = item;
         nextFirst = (nextFirst -  1 + items.length) % items.length;
         size += 1;
     }
 
-//    /** Resizes the underlying array to the target capacity. */
-//    private void resize(int capacity) {
-//        T[] a = (T[]) new Object[capacity];
-//        System.arraycopy(items, 0, a, 0, size);
-//        items = a;
-//    }
+    /** Resizes the underlying array to the target capacity. */
+    private void resize(int capacity) {
+        T[] a = (T[]) new Object[capacity];
+        for (int i = 0; i < size; i++){
+            a[i] = items[(nextFirst + 1 + i) % items.length];
+        }
+        items = a;
+        nextFirst = items.length -1;
+        nextLast = size;
+    }
 
     /**
      * Adds an item of type T to the back of the deque. You can assume that item is never null.
      */
     public void addLast(T item) {
-//        if (size == items.length) {
-//            resize(size * 2);
-//        }
+        //
+        if (size == items.length) {
+            resize(size * 2);
+        }
+        //
         items[nextLast] = item;
         nextLast = (nextLast + 1) % items.length;
         size += 1;
@@ -80,6 +86,9 @@ public class ArrayDeque<T> {
         if (isEmpty()) {
             return null;
         }
+        if ((size < items.length / 4) && (items.length >= 16)) {
+            resize(items.length /2);
+        }
         T result = items[(nextFirst + 1) % items.length];
         items[(nextFirst + 1) % items.length] = null;
         nextFirst = (nextFirst + 1) % items.length;
@@ -93,6 +102,9 @@ public class ArrayDeque<T> {
     public T removeLast() {
         if(isEmpty()) {
             return null;
+        }
+        if ((size < items.length / 4) && (items.length >= 16)) {
+            resize(items.length /2);
         }
         T result = items[(nextLast - 1 + items.length) % items.length];
         items[(nextLast - 1 + items.length) % items.length] = null;
@@ -116,8 +128,8 @@ public class ArrayDeque<T> {
 //        L.addFirst(3);
 //        L.addFirst(5);
 ////        L.removeFirst();
-//        L.removeLast();
-//        L.removeLast();
+////        L.removeLast();
+////        L.removeLast();
 //        L.addLast(7);
 //        L.removeFirst();
 //        L.addFirst(6);
