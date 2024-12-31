@@ -59,7 +59,7 @@ public class LinkedListDeque<T> {
         return first;
     }
 
-    /*Removes and returns the item at the back of the deque. If no such item exists, returns null.*/
+    /** Removes and returns the item at the back of the deque. If no such item exists, returns null.*/
     public T removeLast() {
         if (sentinel.pre.item == null) {
             return null;
@@ -71,7 +71,7 @@ public class LinkedListDeque<T> {
         return last;
     }
 
-    /*Gets the item at the given index, where 0 is the front, 1 is the next item, and so forth.
+    /** Gets the item at the given index, where 0 is the front, 1 is the next item, and so forth.
     If no such item exists, returns null. Must not alter the deque!
      */
     public T get(int index) {
@@ -116,12 +116,12 @@ public class LinkedListDeque<T> {
         }
     }
 
-//    public static void main(String[] args) {
-//        LinkedListDeque<Integer> L = new LinkedListDeque<>(2);
-//        L.addFirst(4);
-//        L.addLast(5);
-//        L.printDeque();
-//        System.out.println(L.get(2));
-//    }
+    public static void main(String[] args) {
+        LinkedListDeque<Integer> L = new LinkedListDeque<>(2);
+        L.addFirst(4);
+        L.addLast(5);
+        L.printDeque();
+        System.out.println(L.getRecursive(2));
+    }
 
 }
