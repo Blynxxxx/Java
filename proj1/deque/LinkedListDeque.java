@@ -116,12 +116,12 @@ public class LinkedListDeque<T> {
         }
     }
 
-    public static void main(String[] args) {
-        LinkedListDeque<Integer> L = new LinkedListDeque<>(2);
-        L.addFirst(4);
-        L.addLast(5);
-        L.printDeque();
-        System.out.println(L.getRecursive(2));
-    }
+//    public static void main(String[] args) {
+//        LinkedListDeque<Integer> L = new LinkedListDeque<>(2);
+//        L.addFirst(4);
+//        L.addLast(5);
+//        L.printDeque();
+//        System.out.println(L.getRecursive(2));
+//    }
 
 }
