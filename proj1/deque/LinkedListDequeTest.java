@@ -131,4 +131,124 @@ public class LinkedListDequeTest {
         }
 
     }
+
+    @Test
+    /* Add large number of elements to deque; check if order is correct. */
+    public void testResize() {
+
+//        System.out.println("Make sure to uncomment the lines below (and delete this print statement).");
+
+        ArrayDeque<Integer> lld1 = new ArrayDeque<>();
+        for (int i = 0; i < 20; i++) {
+            lld1.addLast(i);
+        }
+        for (int j = 0; j < 18; j++) {
+            lld1.removeFirst();
+        }
+
+    }
+
+    //LinkedList - Test equals function
+    @Test
+    public void testThreeEquals() {
+        LinkedListDeque<Integer> aset = new LinkedListDeque<>();
+        aset.addFirst(5);
+        aset.addFirst(23);
+        aset.addFirst(42);
+
+        //equals
+        LinkedListDeque<Integer> aset2 = new LinkedListDeque<>();
+        aset2.addFirst(5);
+        aset2.addFirst(23);
+        aset2.addFirst(42);
+
+        assertEquals(aset, aset2);
+    }
+
+    @Test
+    public void testNotEquals1() {
+        LinkedListDeque<Integer> aset = new LinkedListDeque<>();
+        aset.addFirst(5);
+        aset.addFirst(23);
+        aset.addFirst(42);
+        aset.addFirst(36);
+
+        //equals
+        LinkedListDeque<Integer> aset2 = new LinkedListDeque<>();
+        aset2.addFirst(5);
+        aset2.addFirst(23);
+        aset2.addFirst(42);
+
+        assertNotEquals(aset, aset2);
+    }
+
+    @Test
+    public void testNotEquals2() {
+        LinkedListDeque<Integer> aset = new LinkedListDeque<>();
+        aset.addFirst(5);
+        aset.addFirst(23);
+        aset.addFirst(42);
+
+        //equals
+        LinkedListDeque<Integer> aset2 = new LinkedListDeque<>();
+        aset2.addFirst(5);
+        aset2.addFirst(23);
+        aset2.addFirst(42);
+        aset2.addFirst(36);
+
+        assertNotEquals(aset, aset2);
+    }
+
+
+    // Test equals function ArrayDeque
+
+    @Test
+    public void testThreeEquals0() {
+        ArrayDeque<Integer> aset = new ArrayDeque<>();
+        aset.addFirst(5);
+        aset.addFirst(23);
+        aset.addFirst(42);
+
+        //equals
+        ArrayDeque<Integer> aset2 = new ArrayDeque<>();
+        aset2.addFirst(5);
+        aset2.addFirst(23);
+        aset2.addFirst(42);
+
+        assertEquals(aset, aset2);
+    }
+
+    @Test
+    public void testNotEquals11() {
+        ArrayDeque<Integer> aset = new ArrayDeque<>();
+        aset.addFirst(5);
+        aset.addFirst(23);
+        aset.addFirst(42);
+        aset.addFirst(36);
+
+        //equals
+        ArrayDeque<Integer> aset2 = new ArrayDeque<>();
+        aset2.addFirst(5);
+        aset2.addFirst(23);
+        aset2.addFirst(42);
+
+        assertNotEquals(aset, aset2);
+    }
+
+    @Test
+    public void testNotEquals22() {
+        ArrayDeque<Integer> aset = new ArrayDeque<>();
+        aset.addFirst(5);
+        aset.addFirst(23);
+        aset.addFirst(42);
+
+        //equals
+        ArrayDeque<Integer> aset2 = new ArrayDeque<>();
+        aset2.addFirst(5);
+        aset2.addFirst(23);
+        aset2.addFirst(42);
+        aset2.addFirst(36);
+
+        assertNotEquals(aset, aset2);
+    }
 }
