@@ -2,7 +2,7 @@ package deque;
 
 import java.util.Iterator;
 
-public class LinkedListDeque<T> implements Iterable<T> {
+public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
 
 
     private final LList sentinel;
@@ -21,27 +21,27 @@ public class LinkedListDeque<T> implements Iterable<T> {
         size += 1;
     }
 
-
+    @Override
     public void addFirst(T item) {
         sentinel.next = new LList(item, sentinel.next, sentinel);
         sentinel.next.next.pre = sentinel.next;
         size += 1;
     }
-
+    @Override
     public void addLast(T item) {
         sentinel.pre = new LList(item, sentinel, sentinel.pre);
         sentinel.pre.pre.next = sentinel.pre;
         size += 1;
     }
 
-    public boolean isEmpty() {
-        return size == 0;
-    }
-
+//    public boolean isEmpty() {
+//        return size == 0;
+//    }
+    @Override
     public int size() {
         return size;
     }
-
+    @Override
     public void printDeque() {
         for (LList p = sentinel.next; p != sentinel; p = p.next) {
             System.out.print(p.item + " ");
@@ -50,6 +50,7 @@ public class LinkedListDeque<T> implements Iterable<T> {
     }
 
     /*Removes and returns the item at the front of the deque. If no such item exists, returns null.*/
+    @Override
     public T removeFirst() {
         if (isEmpty()) {
             return null;
@@ -62,6 +63,7 @@ public class LinkedListDeque<T> implements Iterable<T> {
     }
 
     /** Removes and returns the item at the back of the deque. If no such item exists, returns null.*/
+    @Override
     public T removeLast() {
         if (isEmpty()) {
             return null;
@@ -76,6 +78,7 @@ public class LinkedListDeque<T> implements Iterable<T> {
     /** Gets the item at the given index, where 0 is the front, 1 is the next item, and so forth.
     If no such item exists, returns null. Must not alter the deque!
      */
+    @Override
     public T get(int index) {
         if (index >= size || index < 0) {
             return null;
