@@ -36,7 +36,7 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
     /** Resizes the underlying array to the target capacity. */
     private void resize(int capacity) {
         T[] a = (T[]) new Object[capacity];
-        for (int i = 0; i < size; i++){
+        for(int i = 0; i < size; i++) {
             a[i] = items[(nextFirst + 1 + i) % items.length];
         }
         items = a;
@@ -49,11 +49,9 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
      */
     @Override
     public void addLast(T item) {
-        //
-        if (size == items.length) {
+        if(size == items.length) {
             resize(size * 2);
         }
-        //
         items[nextLast] = item;
         nextLast = (nextLast + 1) % items.length;
         size += 1;
@@ -152,23 +150,37 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
         }
     }
 
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) {
+//            return true;
+//        }
+//        if (o instanceof ArrayDeque A) {
+//            if (this.size != A.size) {
+//                return false;
+//            }
+//            for (int i = 0; i < size; i++){
+//                if (!this.get(i).equals(A.get(i))){
+//                    return false;
+//                }
+//            }
+//            return true;
+//        }
+//        return false;
+//    }
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o instanceof ArrayDeque A) {
-            if (this.size != A.size) {
+        if (o == null) { return false; }
+        if (this == o) { return true; } // optimization
+        if (this.getClass() != o.getClass()) { return false; }
+        ArrayDeque<T> other = (ArrayDeque<T>) o;
+        if (this.size() != other.size()) { return false; }
+        for (int i = 0; i < size; i++){
+            if (!this.get(i).equals(other.get(i))){
                 return false;
             }
-            for (int i = 0; i < size; i++){
-                if (!this.get(i).equals(A.get(i))){
-                    return false;
-                }
-            }
-            return true;
         }
-        return false;
+        return true;
     }
 
 
