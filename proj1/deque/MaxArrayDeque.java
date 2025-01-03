@@ -1,15 +1,21 @@
 package deque;
+
 import java.util.Comparator;
 
-public class MaxArrayDeque<T> extends ArrayDeque<T>{
+public class MaxArrayDeque<T> extends ArrayDeque<T> {
     Comparator<T> mc;
-    /** Create a MaxArrayDeque with the given Comparator.*/
-    public MaxArrayDeque(Comparator<T> c){
+
+    /**
+     * Create a MaxArrayDeque with the given Comparator.
+     */
+    public MaxArrayDeque(Comparator<T> c) {
         super();
         mc = c;
     }
 
-    /** Returns the maximum element in the deque as governed by the previously given Comparator. If the MaxArrayDeque is empty, simply return null.*/
+    /**
+     * Returns the maximum element in the deque as governed by the previously given Comparator. If the MaxArrayDeque is empty, simply return null.
+     */
     public T max() {
 //        if (isEmpty()) {
 //            return null;
@@ -24,13 +30,15 @@ public class MaxArrayDeque<T> extends ArrayDeque<T>{
         return max(mc);
     }
 
-    /** Returns the maximum element in the deque as governed by the parameter Comparator c. If the MaxArrayDeque is empty, simply return null.*/
+    /**
+     * Returns the maximum element in the deque as governed by the parameter Comparator c. If the MaxArrayDeque is empty, simply return null.
+     */
     public T max(Comparator<T> c) {
-        if(isEmpty()) {
+        if (isEmpty()) {
             return null;
         }
         T returnItem = get(0);
-        for (T i: this) {
+        for (T i : this) {
             if (c.compare(returnItem, i) < 0) {
                 returnItem = i;
             }
