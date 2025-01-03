@@ -1,6 +1,8 @@
 package deque;
 
-public class ArrayDeque<T> {
+import java.util.Iterator;
+
+public class ArrayDeque<T> implements Iterable<T>{
 
     private T[] items;
     private int size;
@@ -86,7 +88,7 @@ public class ArrayDeque<T> {
         if (isEmpty()) {
             return null;
         }
-        if ((size < items.length / 4) && (items.length >= 16)) {
+        if ((size < items.length / 5) && (items.length >= 16)) {
             resize(items.length /2);
         }
         T result = items[(nextFirst + 1) % items.length];
@@ -103,7 +105,7 @@ public class ArrayDeque<T> {
         if(isEmpty()) {
             return null;
         }
-        if ((size < items.length / 4) && (items.length >= 16)) {
+        if ((size < items.length / 5) && (items.length >= 16)) {
             resize(items.length /2);
         }
         T result = items[(nextLast - 1 + items.length) % items.length];
@@ -121,21 +123,66 @@ public class ArrayDeque<T> {
 
     }
 
-//    public static void main(String[] args) {
-//        ArrayDeque<Integer> L = new ArrayDeque<>();
-//        L.addFirst(4);
-////        L.addLast(5);
-//        L.addFirst(3);
+    public Iterator<T> iterator(){
+        return new ArrayIterator();
+    }
+
+    private class ArrayIterator implements Iterator<T> {
+        private int wizPos;
+
+        public ArrayIterator() {
+            wizPos = 0;
+        }
+
+        public boolean hasNext() {
+            return wizPos < size;
+        }
+
+        public T next() {
+            T returnItem = get(wizPos);
+            wizPos += 1;
+            return returnItem;
+        }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o instanceof ArrayDeque A) {
+            if (this.size != A.size) {
+                return false;
+            }
+            for (int i = 0; i < size; i++){
+                if (!this.get(i).equals(A.get(i))){
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+
+    public static void main(String[] args) {
+        ArrayDeque<Integer> L = new ArrayDeque<>();
+        L.addFirst(4);
+//        L.addLast(5);
+        L.addFirst(3);
 //        L.addFirst(5);
-////        L.removeFirst();
-////        L.removeLast();
-////        L.removeLast();
-//        L.addLast(7);
+//        L.removeFirst();
+//        L.removeLast();
+//        L.removeLast();
+        L.addLast(7);
 //        L.removeFirst();
 //        L.addFirst(6);
 //        L.printDeque();
 //        System.out.println(L.size());
 //        System.out.println(L.get(1));
-//    }
+        for(int i : L) {
+            System.out.println(i);
+        }
+    }
 
 }

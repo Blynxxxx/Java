@@ -1,6 +1,8 @@
 package deque;
 
-public class LinkedListDeque<T> {
+import java.util.Iterator;
+
+public class LinkedListDeque<T> implements Iterable<T> {
 
 
     private final LList sentinel;
@@ -49,7 +51,7 @@ public class LinkedListDeque<T> {
 
     /*Removes and returns the item at the front of the deque. If no such item exists, returns null.*/
     public T removeFirst() {
-        if (sentinel.next.item == null) {
+        if (isEmpty()) {
             return null;
         }
         T first = sentinel.next.item;
@@ -61,7 +63,7 @@ public class LinkedListDeque<T> {
 
     /** Removes and returns the item at the back of the deque. If no such item exists, returns null.*/
     public T removeLast() {
-        if (sentinel.pre.item == null) {
+        if (isEmpty()) {
             return null;
         }
         T last = sentinel.pre.item;
@@ -100,9 +102,47 @@ public class LinkedListDeque<T> {
         return helperGetRecursive(s.next, index -1);
     }
 
-//    public Iterator<T> iterator(){
-//
-//    }
+    public Iterator<T> iterator(){
+        return new LinkedListIterator();
+    }
+
+    private class LinkedListIterator implements Iterator<T> {
+        private int wizPos;
+
+        public LinkedListIterator() {
+            wizPos = 0;
+        }
+
+        public boolean hasNext() {
+            return wizPos < size;
+        }
+
+        public T next() {
+            T returnItem = get(wizPos);
+            wizPos += 1;
+            return returnItem;
+        }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o instanceof LinkedListDeque L) {
+            if (this.size != L.size) {
+                return false;
+            }
+            for (int i = 0; i < size; i++){
+                if (!this.get(i).equals(L.get(i))){
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
 
     private class LList {
         public T item;
@@ -122,6 +162,11 @@ public class LinkedListDeque<T> {
 //        L.addLast(5);
 //        L.printDeque();
 //        System.out.println(L.getRecursive(2));
+//        for (int i : L){
+//            System.out.println(i);
+//        }
+//        LinkedListDeque<Integer> R = L;
+//        System.out.println(L.equals(R));
 //    }
 
 }
