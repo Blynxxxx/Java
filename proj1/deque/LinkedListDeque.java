@@ -14,12 +14,12 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
         size = 0;
     }
 
-    public LinkedListDeque(T item) {
-        sentinel = new LList(null, null, null);
-        sentinel.next = new LList(item, sentinel, sentinel);
-        sentinel.pre = sentinel.next;
-        size += 1;
-    }
+//    public LinkedListDeque(T item) {
+//        sentinel = new LList(null, null, null);
+//        sentinel.next = new LList(item, sentinel, sentinel);
+//        sentinel.pre = sentinel.next;
+//        size += 1;
+//    }
 
     @Override
     public void addFirst(T item) {
@@ -151,7 +151,7 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
         if (o == null) { return false; }
         if (this == o) { return true; } // optimization
         if (this.getClass() != o.getClass()) { return false; }
-        LinkedListDeque<T> other = (LinkedListDeque<T>) o;
+        Deque<T> other = (Deque<T>) o;
         if (this.size() != other.size()) { return false; }
         for (int i = 0; i < size; i++){
                 if (!this.get(i).equals(other.get(i))){
