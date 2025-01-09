@@ -1,6 +1,6 @@
-/** Class that prints the Collatz sequence starting from a given number.
- *  @author YOUR NAME HERE
- */
+///** Class that prints the Collatz sequence starting from a given number.
+// *  @author YOUR NAME HERE
+// */
 public class Collatz {
 
     /** Buggy implementation of nextNumber! */
