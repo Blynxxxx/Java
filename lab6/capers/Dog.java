@@ -1,16 +1,19 @@
 package capers;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
+
+import static capers.CapersRepository.*;
 import static capers.Utils.*;
 
 /** Represents a dog that can be serialized.
- * @author TODO
+ * @author Bao Linh Van
 */
-public class Dog { // TODO
+public class Dog implements Serializable { //
 
     /** Folder that dogs live in. */
-    static final File DOG_FOLDER = null; // TODO (hint: look at the `join`
+    static final File DOG_FOLDER = join(CAPERS_FOLDER,"dogs"); //(hint: look at the `join`
                                          //      function in Utils)
 
     /** Age of dog. */
@@ -40,7 +43,8 @@ public class Dog { // TODO
      */
     public static Dog fromFile(String name) {
         // TODO (hint: look at the Utils file)
-        return null;
+        File f = join(DOG_FOLDER, name);
+        return readObject(f, Dog.class);
     }
 
     /**
@@ -57,6 +61,15 @@ public class Dog { // TODO
      */
     public void saveDog() {
         // TODO (hint: don't forget dog names are unique)
+        File d = join(DOG_FOLDER, name);
+        if (!d.exists()) {
+            try {
+                d.createNewFile();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        writeObject(d, this);
     }
 
     @Override
